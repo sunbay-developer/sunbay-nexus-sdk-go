@@ -1,4 +1,4 @@
-package enums
+package types
 
 // AuthenticationMethod represents authentication method
 type AuthenticationMethod string

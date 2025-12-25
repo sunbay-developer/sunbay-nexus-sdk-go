@@ -1,8 +1,8 @@
 package response
 
 import (
-	"github.com/sunbay-developer/sunbay-nexus-sdk-go/enums"
 	"github.com/sunbay-developer/sunbay-nexus-sdk-go/model/common"
+	"github.com/sunbay-developer/sunbay-nexus-sdk-go/model/types"
 )
 
 // QueryResponse represents a query transaction response
@@ -19,10 +19,10 @@ type QueryResponse struct {
 	ReferenceOrderID string `json:"referenceOrderId,omitempty"`
 
 	// TransactionStatus is the transaction status
-	TransactionStatus enums.TransactionStatus `json:"transactionStatus"`
+	TransactionStatus types.TransactionStatus `json:"transactionStatus"`
 
 	// TransactionType is the transaction type
-	TransactionType enums.TransactionType `json:"transactionType,omitempty"`
+	TransactionType types.TransactionType `json:"transactionType,omitempty"`
 
 	// Amount is the transaction amount details
 	Amount *common.Amount `json:"amount,omitempty"`
@@ -37,7 +37,7 @@ type QueryResponse struct {
 	MaskedPAN string `json:"maskedPan,omitempty"`
 
 	// CardNetworkType is the card network type
-	CardNetworkType enums.CardNetworkType `json:"cardNetworkType,omitempty"`
+	CardNetworkType types.CardNetworkType `json:"cardNetworkType,omitempty"`
 
 	// PaymentMethodID is the payment method ID
 	PaymentMethodID string `json:"paymentMethodId,omitempty"`
@@ -61,10 +61,10 @@ type QueryResponse struct {
 	AuthCode string `json:"authCode,omitempty"`
 
 	// EntryMode is the entry mode
-	EntryMode enums.EntryMode `json:"entryMode,omitempty"`
+	EntryMode types.EntryMode `json:"entryMode,omitempty"`
 
 	// AuthenticationMethod is the authentication method
-	AuthenticationMethod enums.AuthenticationMethod `json:"authenticationMethod,omitempty"`
+	AuthenticationMethod types.AuthenticationMethod `json:"authenticationMethod,omitempty"`
 
 	// TransactionResultCode is the transaction result code
 	TransactionResultCode string `json:"transactionResultCode,omitempty"`

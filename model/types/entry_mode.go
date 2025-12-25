@@ -1,4 +1,4 @@
-package enums
+package types
 
 // EntryMode represents entry mode
 type EntryMode string

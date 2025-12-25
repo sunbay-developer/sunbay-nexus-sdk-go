@@ -1,4 +1,4 @@
-package enums
+package types
 
 // CardNetworkType represents card network type
 type CardNetworkType string

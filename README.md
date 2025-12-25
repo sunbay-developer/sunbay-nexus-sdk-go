@@ -120,9 +120,13 @@ type myLogger struct {
 }
 
 func (l *myLogger) Debug(args ...interface{}) { /* ... */ }
+func (l *myLogger) Debugf(format string, args ...interface{}) { /* ... */ }
 func (l *myLogger) Info(args ...interface{})  { /* ... */ }
+func (l *myLogger) Infof(format string, args ...interface{}) { /* ... */ }
 func (l *myLogger) Warn(args ...interface{})  { /* ... */ }
+func (l *myLogger) Warnf(format string, args ...interface{}) { /* ... */ }
 func (l *myLogger) Error(args ...interface{}) { /* ... */ }
+func (l *myLogger) Errorf(format string, args ...interface{}) { /* ... */ }
 
 config := &nexus.Config{
     APIKey: "your-api-key",

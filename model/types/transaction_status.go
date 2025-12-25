@@ -1,4 +1,4 @@
-package enums
+package types
 
 // TransactionStatus represents transaction status
 type TransactionStatus string

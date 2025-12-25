@@ -32,9 +32,13 @@ const (
 // SDK uses this interface internally, allowing users to inject their preferred logging implementation
 type Logger interface {
 	Debug(args ...interface{})
+	Debugf(format string, args ...interface{})
 	Info(args ...interface{})
+	Infof(format string, args ...interface{})
 	Warn(args ...interface{})
+	Warnf(format string, args ...interface{})
 	Error(args ...interface{})
+	Errorf(format string, args ...interface{})
 }
 
 // defaultLogger is the default logger
@@ -44,16 +48,32 @@ func (l *defaultLogger) Debug(args ...interface{}) {
 	fmt.Println("[DEBUG]", fmt.Sprint(args...))
 }
 
+func (l *defaultLogger) Debugf(format string, args ...interface{}) {
+	fmt.Printf("[DEBUG] %s\n", fmt.Sprintf(format, args...))
+}
+
 func (l *defaultLogger) Info(args ...interface{}) {
 	fmt.Println("[INFO]", fmt.Sprint(args...))
+}
+
+func (l *defaultLogger) Infof(format string, args ...interface{}) {
+	fmt.Printf("[INFO] %s\n", fmt.Sprintf(format, args...))
 }
 
 func (l *defaultLogger) Warn(args ...interface{}) {
 	fmt.Println("[WARN]", fmt.Sprint(args...))
 }
 
+func (l *defaultLogger) Warnf(format string, args ...interface{}) {
+	fmt.Printf("[WARN] %s\n", fmt.Sprintf(format, args...))
+}
+
 func (l *defaultLogger) Error(args ...interface{}) {
 	fmt.Println("[ERROR]", fmt.Sprint(args...))
+}
+
+func (l *defaultLogger) Errorf(format string, args ...interface{}) {
+	fmt.Printf("[ERROR] %s\n", fmt.Sprintf(format, args...))
 }
 
 // getLogger gets the logger (returns default logger if nil)
@@ -379,34 +399,34 @@ func (c *Client) logRequest(method, url string, headers map[string]string, body 
 	headersJSON, _ := json.Marshal(maskedHeaders)
 
 	if body != "" {
-		logger.Info(fmt.Sprintf("Request %s %s - Headers: %s - Body: %s", method, url, string(headersJSON), body))
+		logger.Infof("Request %s %s - Headers: %s - Body: %s", method, url, string(headersJSON), body)
 	} else {
-		logger.Info(fmt.Sprintf("Request %s %s - Headers: %s", method, url, string(headersJSON)))
+		logger.Infof("Request %s %s - Headers: %s", method, url, string(headersJSON))
 	}
 }
 
 // logResponse logs response
 func (c *Client) logResponse(method, url string, statusCode int, body string) {
 	logger := getLogger(c.logger)
-	logger.Info(fmt.Sprintf("Response %s %s - Status: %d, Body: %s", method, url, statusCode, body))
+	logger.Infof("Response %s %s - Status: %d, Body: %s", method, url, statusCode, body)
 }
 
 // logRetry logs retry
 func (c *Client) logRetry(attempt, maxAttempts int, reason string) {
 	logger := getLogger(c.logger)
-	logger.Debug(fmt.Sprintf("Request failed, retrying (%d/%d) after delay: %s", attempt, maxAttempts, reason))
+	logger.Debugf("Request failed, retrying (%d/%d) after delay: %s", attempt, maxAttempts, reason)
 }
 
 // logError logs error
 func (c *Client) logError(method, url string, err error) {
 	logger := getLogger(c.logger)
 	if netErr, ok := err.(*errors.NetworkError); ok {
-		logger.Warn(fmt.Sprintf("Network error %s %s: %v (retryable: %v)", method, url, netErr, netErr.IsRetryable()))
+		logger.Warnf("Network error %s %s: %v (retryable: %v)", method, url, netErr, netErr.IsRetryable())
 	} else if bizErr, ok := err.(*errors.BusinessError); ok {
-		logger.Error(fmt.Sprintf("API error %s %s - code: %s, msg: %s, traceID: %s",
-			method, url, bizErr.Code(), bizErr.Message(), bizErr.TraceID()))
+		logger.Errorf("API error %s %s - code: %s, msg: %s, traceID: %s",
+			method, url, bizErr.Code(), bizErr.Message(), bizErr.TraceID())
 	} else {
-		logger.Error(fmt.Sprintf("Unknown error %s %s: %v", method, url, err))
+		logger.Errorf("Unknown error %s %s: %v", method, url, err)
 	}
 }
 

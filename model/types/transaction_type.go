@@ -1,4 +1,4 @@
-package enums
+package types
 
 // TransactionType represents transaction type
 type TransactionType string

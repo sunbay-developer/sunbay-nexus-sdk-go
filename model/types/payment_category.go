@@ -1,4 +1,4 @@
-package enums
+package types
 
 // PaymentCategory represents payment category
 type PaymentCategory string

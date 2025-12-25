@@ -25,9 +25,13 @@ const (
 // SDK uses this interface internally, allowing users to inject their preferred logging implementation
 type Logger interface {
 	Debug(args ...interface{})
+	Debugf(format string, args ...interface{})
 	Info(args ...interface{})
+	Infof(format string, args ...interface{})
 	Warn(args ...interface{})
+	Warnf(format string, args ...interface{})
 	Error(args ...interface{})
+	Errorf(format string, args ...interface{})
 }
 
 // NexusClient is the main client for Sunbay Nexus SDK
