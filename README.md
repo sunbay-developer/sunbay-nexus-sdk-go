@@ -16,7 +16,11 @@ Official Go SDK for Sunbay Nexus Payment Platform
 ## Installation
 
 ```bash
+# Install latest version
 go get github.com/sunbay-developer/sunbay-nexus-sdk-go
+
+# Install specific version
+go get github.com/sunbay-developer/sunbay-nexus-sdk-go@v1.0.0
 ```
 
 ## Quick Start
