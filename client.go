@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/sunbay-developer/sunbay-nexus-sdk-go/constant"
-	"github.com/sunbay-developer/sunbay-nexus-sdk-go/exception"
+	"github.com/sunbay-developer/sunbay-nexus-sdk-go/errors"
 	"github.com/sunbay-developer/sunbay-nexus-sdk-go/http"
 	"github.com/sunbay-developer/sunbay-nexus-sdk-go/model/request"
 	"github.com/sunbay-developer/sunbay-nexus-sdk-go/model/response"
@@ -67,7 +67,7 @@ type Config struct {
 // This follows the common Go SDK pattern used by Stripe, Alibaba Cloud, etc.
 func NewNexusClient(config *Config) (*NexusClient, error) {
 	if config == nil {
-		return nil, exception.NewBusinessError(
+		return nil, errors.NewBusinessError(
 			constant.ErrorCodeParameterError,
 			"Config cannot be nil",
 			"",
@@ -75,7 +75,7 @@ func NewNexusClient(config *Config) (*NexusClient, error) {
 	}
 
 	if config.APIKey == "" {
-		return nil, exception.NewBusinessError(
+		return nil, errors.NewBusinessError(
 			constant.ErrorCodeParameterError,
 			"API key cannot be empty",
 			"",
@@ -133,7 +133,7 @@ func NewNexusClient(config *Config) (*NexusClient, error) {
 // Sale executes a sale transaction
 func (c *NexusClient) Sale(ctx context.Context, req *request.SaleRequest) (*response.SaleResponse, error) {
 	if req == nil {
-		return nil, exception.NewBusinessError(
+		return nil, errors.NewBusinessError(
 			constant.ErrorCodeParameterError,
 			"SaleRequest cannot be nil",
 			"",
@@ -151,7 +151,7 @@ func (c *NexusClient) Sale(ctx context.Context, req *request.SaleRequest) (*resp
 // Auth executes an authorization (pre-auth) transaction
 func (c *NexusClient) Auth(ctx context.Context, req *request.AuthRequest) (*response.AuthResponse, error) {
 	if req == nil {
-		return nil, exception.NewBusinessError(
+		return nil, errors.NewBusinessError(
 			constant.ErrorCodeParameterError,
 			"AuthRequest cannot be nil",
 			"",
@@ -169,7 +169,7 @@ func (c *NexusClient) Auth(ctx context.Context, req *request.AuthRequest) (*resp
 // ForcedAuth executes a forced authorization transaction
 func (c *NexusClient) ForcedAuth(ctx context.Context, req *request.ForcedAuthRequest) (*response.ForcedAuthResponse, error) {
 	if req == nil {
-		return nil, exception.NewBusinessError(
+		return nil, errors.NewBusinessError(
 			constant.ErrorCodeParameterError,
 			"ForcedAuthRequest cannot be nil",
 			"",
@@ -187,7 +187,7 @@ func (c *NexusClient) ForcedAuth(ctx context.Context, req *request.ForcedAuthReq
 // IncrementalAuth executes an incremental authorization transaction
 func (c *NexusClient) IncrementalAuth(ctx context.Context, req *request.IncrementalAuthRequest) (*response.IncrementalAuthResponse, error) {
 	if req == nil {
-		return nil, exception.NewBusinessError(
+		return nil, errors.NewBusinessError(
 			constant.ErrorCodeParameterError,
 			"IncrementalAuthRequest cannot be nil",
 			"",
@@ -205,7 +205,7 @@ func (c *NexusClient) IncrementalAuth(ctx context.Context, req *request.Incremen
 // PostAuth executes a post authorization (pre-auth completion) transaction
 func (c *NexusClient) PostAuth(ctx context.Context, req *request.PostAuthRequest) (*response.PostAuthResponse, error) {
 	if req == nil {
-		return nil, exception.NewBusinessError(
+		return nil, errors.NewBusinessError(
 			constant.ErrorCodeParameterError,
 			"PostAuthRequest cannot be nil",
 			"",
@@ -223,7 +223,7 @@ func (c *NexusClient) PostAuth(ctx context.Context, req *request.PostAuthRequest
 // Refund executes a refund transaction
 func (c *NexusClient) Refund(ctx context.Context, req *request.RefundRequest) (*response.RefundResponse, error) {
 	if req == nil {
-		return nil, exception.NewBusinessError(
+		return nil, errors.NewBusinessError(
 			constant.ErrorCodeParameterError,
 			"RefundRequest cannot be nil",
 			"",
@@ -241,7 +241,7 @@ func (c *NexusClient) Refund(ctx context.Context, req *request.RefundRequest) (*
 // Void executes a void transaction
 func (c *NexusClient) Void(ctx context.Context, req *request.VoidRequest) (*response.VoidResponse, error) {
 	if req == nil {
-		return nil, exception.NewBusinessError(
+		return nil, errors.NewBusinessError(
 			constant.ErrorCodeParameterError,
 			"VoidRequest cannot be nil",
 			"",
@@ -259,7 +259,7 @@ func (c *NexusClient) Void(ctx context.Context, req *request.VoidRequest) (*resp
 // Abort executes an abort transaction
 func (c *NexusClient) Abort(ctx context.Context, req *request.AbortRequest) (*response.AbortResponse, error) {
 	if req == nil {
-		return nil, exception.NewBusinessError(
+		return nil, errors.NewBusinessError(
 			constant.ErrorCodeParameterError,
 			"AbortRequest cannot be nil",
 			"",
@@ -277,7 +277,7 @@ func (c *NexusClient) Abort(ctx context.Context, req *request.AbortRequest) (*re
 // TipAdjust executes a tip adjust transaction
 func (c *NexusClient) TipAdjust(ctx context.Context, req *request.TipAdjustRequest) (*response.TipAdjustResponse, error) {
 	if req == nil {
-		return nil, exception.NewBusinessError(
+		return nil, errors.NewBusinessError(
 			constant.ErrorCodeParameterError,
 			"TipAdjustRequest cannot be nil",
 			"",
@@ -295,7 +295,7 @@ func (c *NexusClient) TipAdjust(ctx context.Context, req *request.TipAdjustReque
 // Query queries a transaction
 func (c *NexusClient) Query(ctx context.Context, req *request.QueryRequest) (*response.QueryResponse, error) {
 	if req == nil {
-		return nil, exception.NewBusinessError(
+		return nil, errors.NewBusinessError(
 			constant.ErrorCodeParameterError,
 			"QueryRequest cannot be nil",
 			"",
@@ -313,7 +313,7 @@ func (c *NexusClient) Query(ctx context.Context, req *request.QueryRequest) (*re
 // BatchClose executes a batch close transaction
 func (c *NexusClient) BatchClose(ctx context.Context, req *request.BatchCloseRequest) (*response.BatchCloseResponse, error) {
 	if req == nil {
-		return nil, exception.NewBusinessError(
+		return nil, errors.NewBusinessError(
 			constant.ErrorCodeParameterError,
 			"BatchCloseRequest cannot be nil",
 			"",
@@ -326,10 +326,5 @@ func (c *NexusClient) BatchClose(ctx context.Context, req *request.BatchCloseReq
 		return nil, err
 	}
 	return resp, nil
-}
-
-// Close closes the client and releases resources
-func (c *NexusClient) Close() error {
-	return c.httpClient.Close()
 }
 

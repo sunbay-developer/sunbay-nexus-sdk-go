@@ -4,23 +4,23 @@ package enums
 type CardNetworkType string
 
 const (
-	// CardNetworkTypeCredit is the credit card type
+	// CardNetworkTypeCredit CREDIT (code: "CREDIT")
 	CardNetworkTypeCredit CardNetworkType = "CREDIT"
 
-	// CardNetworkTypeDebit is the debit card type
+	// CardNetworkTypeDebit DEBIT (code: "DEBIT")
 	CardNetworkTypeDebit CardNetworkType = "DEBIT"
 
-	// CardNetworkTypeEBT is the EBT (Electronic Benefit Transfer) type
+	// CardNetworkTypeEBT EBT (code: "EBT")
 	CardNetworkTypeEBT CardNetworkType = "EBT"
 
-	// CardNetworkTypeEGC is the EGC (Electronic Gift Card) type
+	// CardNetworkTypeEGC EGC (code: "EGC")
 	CardNetworkTypeEGC CardNetworkType = "EGC"
 
-	// CardNetworkTypeUnknown is the unknown card type
+	// CardNetworkTypeUnknown UNKNOWN (code: "UNKNOWN")
 	CardNetworkTypeUnknown CardNetworkType = "UNKNOWN"
 )
 
-// String returns the string representation
+// String returns the card network type code
 func (c CardNetworkType) String() string {
 	return string(c)
 }

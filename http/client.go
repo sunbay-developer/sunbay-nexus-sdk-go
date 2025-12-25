@@ -13,8 +13,7 @@ import (
 	"time"
 
 	"github.com/sunbay-developer/sunbay-nexus-sdk-go/constant"
-	"github.com/sunbay-developer/sunbay-nexus-sdk-go/exception"
-	"github.com/sunbay-developer/sunbay-nexus-sdk-go/model/common"
+	"github.com/sunbay-developer/sunbay-nexus-sdk-go/errors"
 	"github.com/sunbay-developer/sunbay-nexus-sdk-go/util"
 )
 
@@ -243,7 +242,7 @@ func (c *Client) executeRequest(req *http.Request, responseType interface{}, ret
 			lastErr = err
 			if !retryable || attempt >= maxAttempts {
 				c.logError(method, urlStr, err)
-				return exception.NewNetworkError("Network error: "+err.Error(), true, err)
+				return errors.NewNetworkError("Network error: "+err.Error(), true, err)
 			}
 			c.logRetry(attempt, maxAttempts, err.Error())
 			time.Sleep(c.retryDelay * time.Duration(attempt))
@@ -256,7 +255,7 @@ func (c *Client) executeRequest(req *http.Request, responseType interface{}, ret
 			lastErr = err
 			if !retryable || attempt >= maxAttempts {
 				c.logError(method, urlStr, err)
-				return exception.NewNetworkError("Failed to read response body: "+err.Error(), false, err)
+				return errors.NewNetworkError("Failed to read response body: "+err.Error(), false, err)
 			}
 			c.logRetry(attempt, maxAttempts, err.Error())
 			time.Sleep(c.retryDelay * time.Duration(attempt))
@@ -277,7 +276,7 @@ func (c *Client) executeRequest(req *http.Request, responseType interface{}, ret
 
 		if err != nil {
 			// If network error and retryable, continue retrying
-			if netErr, ok := err.(*exception.NetworkError); ok && netErr.IsRetryable() && retryable && attempt < maxAttempts {
+			if netErr, ok := err.(*errors.NetworkError); ok && netErr.IsRetryable() && retryable && attempt < maxAttempts {
 				lastErr = err
 				c.logRetry(attempt, maxAttempts, err.Error())
 				time.Sleep(c.retryDelay * time.Duration(attempt))
@@ -290,7 +289,7 @@ func (c *Client) executeRequest(req *http.Request, responseType interface{}, ret
 		return nil
 	}
 
-	finalErr := exception.NewNetworkError(
+	finalErr := errors.NewNetworkError(
 		fmt.Sprintf("Request failed after %d attempts", maxAttempts),
 		retryable,
 		lastErr,
@@ -303,12 +302,12 @@ func (c *Client) executeRequest(req *http.Request, responseType interface{}, ret
 func (c *Client) parseResponse(resp *http.Response, result interface{}) error {
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return exception.NewNetworkError("Failed to read response body", false, err)
+		return errors.NewNetworkError("Failed to read response body", false, err)
 	}
 
 	// Check HTTP status code
 	if resp.StatusCode < constant.HTTPStatusOKStart || resp.StatusCode >= constant.HTTPStatusOKEnd {
-		return exception.NewNetworkError(
+		return errors.NewNetworkError(
 			fmt.Sprintf("HTTP %d: %s", resp.StatusCode, string(body)),
 			resp.StatusCode >= constant.HTTPStatusServerErrorStart,
 			nil,
@@ -324,7 +323,7 @@ func (c *Client) parseResponse(resp *http.Response, result interface{}) error {
 	}
 
 	if err := json.Unmarshal(body, &wrapper); err != nil {
-		return exception.NewNetworkError("Failed to parse response", false, err)
+		return errors.NewNetworkError("Failed to parse response", false, err)
 	}
 
 	// If data field exists, parse data; otherwise parse entire response
@@ -335,8 +334,17 @@ func (c *Client) parseResponse(resp *http.Response, result interface{}) error {
 		dataToParse = body
 	}
 
+	// Check business error before parsing (code != "0" means error)
+	if wrapper.Code != constant.ResponseSuccessCode {
+		return errors.NewBusinessError(
+			wrapper.Code,
+			wrapper.Msg,
+			wrapper.TraceID,
+		)
+	}
+
 	if err := json.Unmarshal(dataToParse, result); err != nil {
-		return exception.NewNetworkError("Failed to unmarshal result", false, err)
+		return errors.NewNetworkError("Failed to unmarshal result", false, err)
 	}
 
 	// Set base fields
@@ -348,17 +356,6 @@ func (c *Client) parseResponse(resp *http.Response, result interface{}) error {
 		baseResp.SetCode(wrapper.Code)
 		baseResp.SetMsg(wrapper.Msg)
 		baseResp.SetTraceID(wrapper.TraceID)
-	}
-
-	// Check business error
-	if baseResp, ok := result.(*common.BaseResponse); ok {
-		if !baseResp.IsSuccess() {
-			return exception.NewBusinessError(
-				baseResp.Code,
-				baseResp.Msg,
-				baseResp.TraceID,
-			)
-		}
 	}
 
 	return nil
@@ -403,9 +400,9 @@ func (c *Client) logRetry(attempt, maxAttempts int, reason string) {
 // logError logs error
 func (c *Client) logError(method, url string, err error) {
 	logger := getLogger(c.logger)
-	if netErr, ok := err.(*exception.NetworkError); ok {
+	if netErr, ok := err.(*errors.NetworkError); ok {
 		logger.Warn(fmt.Sprintf("Network error %s %s: %v (retryable: %v)", method, url, netErr, netErr.IsRetryable()))
-	} else if bizErr, ok := err.(*exception.BusinessError); ok {
+	} else if bizErr, ok := err.(*errors.BusinessError); ok {
 		logger.Error(fmt.Sprintf("API error %s %s - code: %s, msg: %s, traceID: %s",
 			method, url, bizErr.Code(), bizErr.Message(), bizErr.TraceID()))
 	} else {
@@ -431,11 +428,4 @@ func maskAuthorization(authValue string) string {
 	return "****"
 }
 
-// Close closes HTTP client and releases resources
-func (c *Client) Close() error {
-	if transport, ok := c.httpClient.Transport.(*http.Transport); ok {
-		transport.CloseIdleConnections()
-	}
-	return nil
-}
 

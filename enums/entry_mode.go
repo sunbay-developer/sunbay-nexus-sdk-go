@@ -4,23 +4,23 @@ package enums
 type EntryMode string
 
 const (
-	// EntryModeManual is the manual entry mode
+	// EntryModeManual MANUAL (code: "MANUAL")
 	EntryModeManual EntryMode = "MANUAL"
 
-	// EntryModeSwipe is the swipe card mode
+	// EntryModeSwipe SWIPE (code: "SWIPE")
 	EntryModeSwipe EntryMode = "SWIPE"
 
-	// EntryModeFallbackSwipe is the fallback swipe mode
+	// EntryModeFallbackSwipe FALLBACK_SWIPE (code: "FALLBACK_SWIPE")
 	EntryModeFallbackSwipe EntryMode = "FALLBACK_SWIPE"
 
-	// EntryModeContact is the contact chip mode
+	// EntryModeContact CONTACT (code: "CONTACT")
 	EntryModeContact EntryMode = "CONTACT"
 
-	// EntryModeContactless is the contactless mode
+	// EntryModeContactless CONTACTLESS (code: "CONTACTLESS")
 	EntryModeContactless EntryMode = "CONTACTLESS"
 )
 
-// String returns the string representation
+// String returns the entry mode code
 func (e EntryMode) String() string {
 	return string(e)
 }

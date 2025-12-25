@@ -1,7 +1,5 @@
 package common
 
-import "github.com/sunbay-developer/sunbay-nexus-sdk-go/constant"
-
 // BaseResponse is the base response
 type BaseResponse struct {
 	Code    string `json:"code"`
@@ -22,10 +20,5 @@ func (r *BaseResponse) SetMsg(msg string) {
 // SetTraceID sets the trace ID
 func (r *BaseResponse) SetTraceID(traceID string) {
 	r.TraceID = traceID
-}
-
-// IsSuccess checks if the response is successful
-func (r *BaseResponse) IsSuccess() bool {
-	return r.Code == constant.ResponseSuccessCode
 }
 

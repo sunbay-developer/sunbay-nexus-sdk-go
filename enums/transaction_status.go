@@ -4,49 +4,26 @@ package enums
 type TransactionStatus string
 
 const (
-	// TransactionStatusInitial is the initial state (code: "I")
+	// TransactionStatusInitial INITIAL (code: "I")
 	TransactionStatusInitial TransactionStatus = "I"
 
-	// TransactionStatusProcessing is the transaction processing state (code: "P")
+	// TransactionStatusProcessing PROCESSING (code: "P")
 	// Channel called but no result obtained, or unexpected exception returned
 	TransactionStatusProcessing TransactionStatus = "P"
 
-	// TransactionStatusSuccess is the transaction successful state (code: "S")
+	// TransactionStatusSuccess SUCCESS (code: "S")
 	TransactionStatusSuccess TransactionStatus = "S"
 
-	// TransactionStatusFail is the transaction failed state (code: "F")
+	// TransactionStatusFail FAIL (code: "F")
 	TransactionStatusFail TransactionStatus = "F"
 
-	// TransactionStatusClosed is the transaction closed state (code: "C")
+	// TransactionStatusClosed CLOSED (code: "C")
 	TransactionStatusClosed TransactionStatus = "C"
 )
 
-// Code returns the status code (same as the enum value)
-func (s TransactionStatus) Code() string {
-	return string(s)
-}
-
-// Desc returns the status description
-func (s TransactionStatus) Desc() string {
-	switch s {
-	case TransactionStatusInitial:
-		return "INITIAL"
-	case TransactionStatusProcessing:
-		return "PROCESSING"
-	case TransactionStatusSuccess:
-		return "SUCCESS"
-	case TransactionStatusFail:
-		return "FAIL"
-	case TransactionStatusClosed:
-		return "CLOSED"
-	default:
-		return ""
-	}
-}
-
-// String returns the string representation (status description)
+// String returns the status code
 func (s TransactionStatus) String() string {
-	return s.Desc()
+	return string(s)
 }
 
 // IsValid checks if the status is valid

@@ -4,29 +4,29 @@ package enums
 type TransactionType string
 
 const (
-	// TransactionTypeSale is the sale transaction type
+	// TransactionTypeSale SALE (code: "SALE")
 	TransactionTypeSale TransactionType = "SALE"
 
-	// TransactionTypeAuth is the authorization (pre-auth) transaction type
+	// TransactionTypeAuth AUTH (code: "AUTH")
 	TransactionTypeAuth TransactionType = "AUTH"
 
-	// TransactionTypeForcedAuth is the forced authorization transaction type
+	// TransactionTypeForcedAuth FORCED_AUTH (code: "FORCED_AUTH")
 	TransactionTypeForcedAuth TransactionType = "FORCED_AUTH"
 
-	// TransactionTypeIncremental is the incremental authorization transaction type
+	// TransactionTypeIncremental INCREMENTAL (code: "INCREMENTAL")
 	TransactionTypeIncremental TransactionType = "INCREMENTAL"
 
-	// TransactionTypePostAuth is the post authorization (pre-auth completion) transaction type
+	// TransactionTypePostAuth POST_AUTH (code: "POST_AUTH")
 	TransactionTypePostAuth TransactionType = "POST_AUTH"
 
-	// TransactionTypeRefund is the refund transaction type
+	// TransactionTypeRefund REFUND (code: "REFUND")
 	TransactionTypeRefund TransactionType = "REFUND"
 
-	// TransactionTypeVoid is the void transaction type
+	// TransactionTypeVoid VOID (code: "VOID")
 	TransactionTypeVoid TransactionType = "VOID"
 )
 
-// String returns the string representation
+// String returns the transaction type code
 func (t TransactionType) String() string {
 	return string(t)
 }

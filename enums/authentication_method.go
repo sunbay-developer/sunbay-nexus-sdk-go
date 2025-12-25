@@ -4,23 +4,23 @@ package enums
 type AuthenticationMethod string
 
 const (
-	// AuthenticationMethodNotAuthenticated is the not authenticated method
+	// AuthenticationMethodNotAuthenticated NOT_AUTHENTICATED (code: "NOT_AUTHENTICATED")
 	AuthenticationMethodNotAuthenticated AuthenticationMethod = "NOT_AUTHENTICATED"
 
-	// AuthenticationMethodPIN is the PIN authentication method
+	// AuthenticationMethodPIN PIN (code: "PIN")
 	AuthenticationMethodPIN AuthenticationMethod = "PIN"
 
-	// AuthenticationMethodOfflinePIN is the offline PIN method
+	// AuthenticationMethodOfflinePIN OFFLINE_PIN (code: "OFFLINE_PIN")
 	AuthenticationMethodOfflinePIN AuthenticationMethod = "OFFLINE_PIN"
 
-	// AuthenticationMethodBypass is the bypass authentication method
+	// AuthenticationMethodBypass BY_PASS (code: "BY_PASS")
 	AuthenticationMethodBypass AuthenticationMethod = "BY_PASS"
 
-	// AuthenticationMethodSignature is the signature authentication method
+	// AuthenticationMethodSignature SIGNATURE (code: "SIGNATURE")
 	AuthenticationMethodSignature AuthenticationMethod = "SIGNATURE"
 )
 
-// String returns the string representation
+// String returns the authentication method code
 func (a AuthenticationMethod) String() string {
 	return string(a)
 }

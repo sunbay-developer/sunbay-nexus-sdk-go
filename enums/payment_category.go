@@ -4,29 +4,24 @@ package enums
 type PaymentCategory string
 
 const (
-	// PaymentCategoryCard is the card payment category
+	// PaymentCategoryCard CARD (code: "CARD")
 	PaymentCategoryCard PaymentCategory = "CARD"
 
-	// PaymentCategoryCardCredit is the credit card network category
+	// PaymentCategoryCardCredit CARD-CREDIT (code: "CARD-CREDIT")
 	PaymentCategoryCardCredit PaymentCategory = "CARD-CREDIT"
 
-	// PaymentCategoryCardDebit is the debit card network category
+	// PaymentCategoryCardDebit CARD-DEBIT (code: "CARD-DEBIT")
 	PaymentCategoryCardDebit PaymentCategory = "CARD-DEBIT"
 
-	// PaymentCategoryQRMPM is the QR code merchant presented mode category
+	// PaymentCategoryQRMPM QR-MPM (code: "QR-MPM")
 	PaymentCategoryQRMPM PaymentCategory = "QR-MPM"
 
-	// PaymentCategoryQRCPM is the QR code customer presented mode category
+	// PaymentCategoryQRCPM QR-CPM (code: "QR-CPM")
 	PaymentCategoryQRCPM PaymentCategory = "QR-CPM"
 )
 
-// String returns the string representation
+// String returns the payment category code
 func (p PaymentCategory) String() string {
-	return string(p)
-}
-
-// Value returns the JSON value for serialization
-func (p PaymentCategory) Value() string {
 	return string(p)
 }
 

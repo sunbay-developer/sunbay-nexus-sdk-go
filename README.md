@@ -38,7 +38,7 @@ import (
     "log"
     
     nexus "github.com/sunbay-developer/sunbay-nexus-sdk-go"
-    "github.com/sunbay-developer/sunbay-nexus-sdk-go/exception"
+    "github.com/sunbay-developer/sunbay-nexus-sdk-go/errors"
     "github.com/sunbay-developer/sunbay-nexus-sdk-go/model/request"
     "github.com/sunbay-developer/sunbay-nexus-sdk-go/model/common"
 )
@@ -75,19 +75,17 @@ func main() {
     resp, err := client.Sale(ctx, req)
     if err != nil {
         // Error handling
-        if bizErr, ok := err.(*exception.BusinessError); ok {
+        if bizErr, ok := err.(*errors.BusinessError); ok {
             log.Printf("Business error: code=%s, msg=%s, traceID=%s",
                 bizErr.Code(), bizErr.Message(), bizErr.TraceID())
-        } else if netErr, ok := err.(*exception.NetworkError); ok {
+        } else if netErr, ok := err.(*errors.NetworkError); ok {
             log.Printf("Network error: %v (retryable: %v)", netErr, netErr.IsRetryable())
         }
         return
     }
     
-    // Handle response
-    if resp.IsSuccess() {
-        fmt.Printf("Transaction ID: %s\n", resp.TransactionID)
-    }
+    // Handle response (if no error, response is successful)
+    fmt.Printf("Transaction ID: %s\n", resp.TransactionID)
 }
 ```
 
@@ -157,10 +155,10 @@ Always check error type:
 ```go
 resp, err := client.Sale(ctx, req)
 if err != nil {
-    if bizErr, ok := err.(*exception.BusinessError); ok {
+    if bizErr, ok := err.(*errors.BusinessError); ok {
         // Handle business error
         log.Printf("Business error: code=%s, msg=%s", bizErr.Code(), bizErr.Message())
-    } else if netErr, ok := err.(*exception.NetworkError); ok {
+    } else if netErr, ok := err.(*errors.NetworkError); ok {
         // Handle network error
         if netErr.IsRetryable() {
             // Can retry
