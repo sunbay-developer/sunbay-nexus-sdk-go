@@ -53,7 +53,6 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    defer client.Close()
     
     // Build request
     amount := 100.00
