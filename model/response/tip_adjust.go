@@ -12,7 +12,7 @@ type TipAdjustResponse struct {
 	// OriginalTransactionRequestID is the original transaction's request ID (only returned when provided in request)
 	OriginalTransactionRequestID string `json:"originalTransactionRequestId,omitempty"`
 
-	// TipAmount is the adjusted tip amount, in basic currency unit, returned as-is from request
-	TipAmount *float64 `json:"tipAmount"`
+	// TipAmount is the adjusted tip amount in cents, returned as-is from request
+	TipAmount *int64 `json:"tipAmount"`
 }
 

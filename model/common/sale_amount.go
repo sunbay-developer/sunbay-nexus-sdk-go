@@ -3,20 +3,20 @@ package common
 // SaleAmount represents sale transaction amount information
 // Supports: orderAmount, tipAmount, taxAmount, surchargeAmount, cashbackAmount
 type SaleAmount struct {
-	// OrderAmount is the order amount (required)
-	OrderAmount *float64 `json:"orderAmount"`
+	// OrderAmount is the order amount in cents (required)
+	OrderAmount *int64 `json:"orderAmount"`
 
-	// TipAmount is the tip amount (optional)
-	TipAmount *float64 `json:"tipAmount,omitempty"`
+	// TipAmount is the tip amount in cents (optional)
+	TipAmount *int64 `json:"tipAmount,omitempty"`
 
-	// TaxAmount is the tax amount (optional)
-	TaxAmount *float64 `json:"taxAmount,omitempty"`
+	// TaxAmount is the tax amount in cents (optional)
+	TaxAmount *int64 `json:"taxAmount,omitempty"`
 
-	// SurchargeAmount is the surcharge amount (optional)
-	SurchargeAmount *float64 `json:"surchargeAmount,omitempty"`
+	// SurchargeAmount is the surcharge amount in cents (optional)
+	SurchargeAmount *int64 `json:"surchargeAmount,omitempty"`
 
-	// CashbackAmount is the cashback amount (optional)
-	CashbackAmount *float64 `json:"cashbackAmount,omitempty"`
+	// CashbackAmount is the cashback amount in cents (optional)
+	CashbackAmount *int64 `json:"cashbackAmount,omitempty"`
 
 	// PricingCurrency is the pricing currency (ISO 4217, required)
 	PricingCurrency string `json:"pricingCurrency"`

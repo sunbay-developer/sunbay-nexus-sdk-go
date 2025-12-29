@@ -55,14 +55,15 @@ func main() {
     }
     
     // Build request
-    amount := 100.00
+    // Note: All amounts are in cents (e.g., 100.00 USD = 10000 cents)
+    orderAmount := int64(10000)
     req := &request.SaleRequest{
         AppID:               "app_123456",
         MerchantID:          "mch_789012",
         ReferenceOrderID:    "ORDER20231119001",
         TransactionRequestID: "PAY_REQ_1234567890",
         Amount: &common.SaleAmount{
-            OrderAmount:     &amount,
+            OrderAmount:     &orderAmount,
             PricingCurrency: "USD",
         },
         Description: "Product purchase",
@@ -140,11 +141,50 @@ client, err := nexus.NewNexusClient(config)
 ### Transaction APIs
 
 - `Sale(ctx, req)` - Sale transaction
-- More APIs coming soon...
+- `Auth(ctx, req)` - Authorization transaction
+- `ForcedAuth(ctx, req)` - Forced authorization transaction
+- `IncrementalAuth(ctx, req)` - Incremental authorization transaction
+- `PostAuth(ctx, req)` - Post authorization transaction
+- `Refund(ctx, req)` - Refund transaction
+- `Void(ctx, req)` - Void transaction
+- `Abort(ctx, req)` - Abort transaction
+- `TipAdjust(ctx, req)` - Tip adjustment transaction
+- `BatchClose(ctx, req)` - Batch close transaction
 
 ### Query APIs
 
-- Coming soon...
+- `Query(ctx, req)` - Query transaction status
+
+## Amount Format
+
+**Important**: All amount fields in the SDK use **cents** (the smallest currency unit), not currency units.
+
+For example:
+- 100.00 USD = 10000 cents
+- 222.00 USD = 22200 cents
+- 1.50 USD = 150 cents
+
+When building requests, always convert currency amounts to cents:
+
+```go
+// Convert 100.00 USD to cents
+orderAmount := int64(10000)  // 100.00 * 100
+
+amount := &common.SaleAmount{
+    OrderAmount:     &orderAmount,
+    PricingCurrency: "USD",
+}
+```
+
+Response amounts are also returned in cents, so you may need to convert them back to currency units for display:
+
+```go
+// Convert cents back to currency units for display
+if resp.Amount != nil && resp.Amount.OrderAmount != nil {
+    currencyAmount := float64(*resp.Amount.OrderAmount) / 100.0
+    fmt.Printf("Order amount: %.2f %s\n", currencyAmount, resp.Amount.PricingCurrency)
+}
+```
 
 ## Error Handling
 
