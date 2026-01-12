@@ -64,7 +64,7 @@ func main() {
         TransactionRequestID: "PAY_REQ_1234567890",
         Amount: &common.SaleAmount{
             OrderAmount:     &orderAmount,
-            PricingCurrency: "USD",
+            PriceCurrency:   "USD",
         },
         Description: "Product purchase",
         TerminalSN:  "T1234567890",
@@ -155,6 +155,11 @@ client, err := nexus.NewNexusClient(config)
 
 - `Query(ctx, req)` - Query transaction status
 
+### Settlement APIs
+
+- `BatchClose(ctx, req)` - Batch close transaction
+- `BatchQuery(ctx, req)` - Query batch statistics
+
 ## Amount Format
 
 **Important**: All amount fields in the SDK use **cents** (the smallest currency unit), not currency units.
@@ -172,7 +177,7 @@ orderAmount := int64(10000)  // 100.00 * 100
 
 amount := &common.SaleAmount{
     OrderAmount:     &orderAmount,
-    PricingCurrency: "USD",
+    PriceCurrency:   "USD",
 }
 ```
 
@@ -182,7 +187,7 @@ Response amounts are also returned in cents, so you may need to convert them bac
 // Convert cents back to currency units for display
 if resp.Amount != nil && resp.Amount.OrderAmount != nil {
     currencyAmount := float64(*resp.Amount.OrderAmount) / 100.0
-    fmt.Printf("Order amount: %.2f %s\n", currencyAmount, resp.Amount.PricingCurrency)
+    fmt.Printf("Order amount: %.2f %s\n", currencyAmount, resp.Amount.PriceCurrency)
 }
 ```
 

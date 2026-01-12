@@ -8,7 +8,7 @@ import (
 // Amount represents transaction amount information
 // Used in query response
 type Amount struct {
-	// PriceCurrency is the price currency (used in query response, ISO 4217)
+	// PriceCurrency is the price currency (ISO 4217)
 	PriceCurrency string `json:"priceCurrency,omitempty"`
 
 	// TransAmount is the transaction amount in cents (calculated field in response)
@@ -28,9 +28,6 @@ type Amount struct {
 
 	// CashbackAmount is the cashback amount in cents
 	CashbackAmount *int64 `json:"cashbackAmount,omitempty"`
-
-	// PricingCurrency is the pricing currency (ISO 4217, used in request)
-	PricingCurrency string `json:"pricingCurrency,omitempty"`
 }
 
 // UnmarshalJSON implements custom JSON unmarshaling to handle number/string-to-int conversion
@@ -45,7 +42,6 @@ func (a *Amount) UnmarshalJSON(data []byte) error {
 		SurchargeAmount interface{} `json:"surchargeAmount,omitempty"`
 		TipAmount       interface{} `json:"tipAmount,omitempty"`
 		CashbackAmount  interface{} `json:"cashbackAmount,omitempty"`
-		PricingCurrency string      `json:"pricingCurrency,omitempty"`
 	}
 
 	var alias Alias
@@ -55,7 +51,6 @@ func (a *Amount) UnmarshalJSON(data []byte) error {
 
 	// Copy non-amount fields
 	a.PriceCurrency = alias.PriceCurrency
-	a.PricingCurrency = alias.PricingCurrency
 
 	// Convert amount values to int64 (cents)
 	// API may return as number (int/float) or string (integer or float), handle all cases
@@ -109,4 +104,3 @@ func (a *Amount) UnmarshalJSON(data []byte) error {
 
 	return nil
 }
-

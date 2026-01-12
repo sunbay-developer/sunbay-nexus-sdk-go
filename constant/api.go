@@ -11,11 +11,11 @@ const (
 
 // HTTP status codes
 const (
-	HTTPStatusOKStart           = 200
-	HTTPStatusOKEnd             = 300
-	HTTPStatusClientErrorStart  = 400
-	HTTPStatusClientErrorEnd    = 500
-	HTTPStatusServerErrorStart  = 500
+	HTTPStatusOKStart          = 200
+	HTTPStatusOKEnd            = 300
+	HTTPStatusClientErrorStart = 400
+	HTTPStatusClientErrorEnd   = 500
+	HTTPStatusServerErrorStart = 500
 )
 
 // ResponseSuccessCode is the response success code
@@ -58,5 +58,5 @@ const (
 // Semi-integration settlement API paths
 const (
 	PathBatchClose = SemiIntegrationPrefix + "/settlement/batch-close"
+	PathBatchQuery = SemiIntegrationPrefix + "/settlement/batch-query"
 )
-

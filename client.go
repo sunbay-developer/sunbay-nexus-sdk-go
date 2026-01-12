@@ -16,8 +16,8 @@ const (
 	defaultConnectTimeout = 30 * time.Second
 	defaultReadTimeout    = 60 * time.Second
 	defaultMaxRetries     = 3
-	defaultMaxTotal        = 200
-	defaultMaxPerRoute     = 20
+	defaultMaxTotal       = 200
+	defaultMaxPerRoute    = 20
 )
 
 // Logger is the logging interface that allows integration with any logging library
@@ -332,3 +332,20 @@ func (c *NexusClient) BatchClose(ctx context.Context, req *request.BatchCloseReq
 	return resp, nil
 }
 
+// BatchQuery queries batch statistics
+func (c *NexusClient) BatchQuery(ctx context.Context, req *request.BatchQueryRequest) (*response.BatchQueryResponse, error) {
+	if req == nil {
+		return nil, errors.NewBusinessError(
+			constant.ErrorCodeParameterError,
+			"BatchQueryRequest cannot be nil",
+			"",
+		)
+	}
+
+	resp := &response.BatchQueryResponse{}
+	err := c.httpClient.Get(constant.PathBatchQuery, req, resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}

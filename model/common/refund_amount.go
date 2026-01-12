@@ -19,7 +19,6 @@ type RefundAmount struct {
 	// CashbackAmount is the cashback amount in cents (optional, must be greater than or equal to 0)
 	CashbackAmount *int64 `json:"cashbackAmount,omitempty"`
 
-	// PricingCurrency is the pricing currency (ISO 4217, required)
-	PricingCurrency string `json:"pricingCurrency"`
+	// PriceCurrency is the price currency (ISO 4217, required)
+	PriceCurrency string `json:"priceCurrency"`
 }
-

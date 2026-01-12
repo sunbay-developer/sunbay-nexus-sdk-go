@@ -17,7 +17,9 @@ type BatchCloseRequest struct {
 	// Description is the batch close description
 	Description string `json:"description"`
 
+	// ChannelCode is the channel code (optional)
+	ChannelCode string `json:"channelCode,omitempty"`
+
 	// Attach is additional data, returned as-is, recommended to use JSON format
 	Attach string `json:"attach,omitempty"`
 }
-

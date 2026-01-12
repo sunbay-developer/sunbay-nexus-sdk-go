@@ -16,7 +16,6 @@ type PostAuthAmount struct {
 	// SurchargeAmount is the surcharge amount in cents (optional)
 	SurchargeAmount *int64 `json:"surchargeAmount,omitempty"`
 
-	// PricingCurrency is the pricing currency (ISO 4217, required)
-	PricingCurrency string `json:"pricingCurrency"`
+	// PriceCurrency is the price currency (ISO 4217, required)
+	PriceCurrency string `json:"priceCurrency"`
 }
-
