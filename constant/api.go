@@ -57,6 +57,6 @@ const (
 
 // Semi-integration settlement API paths
 const (
-	PathBatchClose = SemiIntegrationPrefix + "/settlement/batch-close"
-	PathBatchQuery = SemiIntegrationPrefix + "/settlement/batch-query"
+	PathBatchClose = CommonPrefix + "/settlement/batch-close"
+	PathBatchQuery = CommonPrefix + "/settlement/batch-query"
 )
