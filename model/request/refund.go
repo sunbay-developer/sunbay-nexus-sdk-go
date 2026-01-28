@@ -42,5 +42,8 @@ type RefundRequest struct {
 
 	// TimeExpire is the transaction expiration time, format: yyyy-MM-DDTHH:mm:ss+TIMEZONE (ISO 8601). Transaction will be closed if payment is not completed after this time. Minimum 3 minutes, maximum 1 day, default 1 day if not provided. Only used for refund without reference (requires customer operation on terminal), not needed for refund with reference
 	TimeExpire string `json:"timeExpire,omitempty"`
+
+	// PrintReceipt is the receipt print option. Possible values: NONE (do not print), MERCHANT (print merchant copy only), CUSTOMER (print customer copy only), BOTH (print both copies). Default: "NONE"
+	PrintReceipt string `json:"printReceipt,omitempty"`
 }
 
