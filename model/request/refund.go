@@ -45,5 +45,8 @@ type RefundRequest struct {
 
 	// PrintReceipt is the receipt print option. Possible values: NONE (do not print), MERCHANT (print merchant copy only), CUSTOMER (print customer copy only), BOTH (print both copies). Default: "NONE"
 	PrintReceipt string `json:"printReceipt,omitempty"`
+
+	// PushToTerminal indicates whether to push the transaction to the terminal. Default: true
+	PushToTerminal *bool `json:"pushToTerminal,omitempty"`
 }
 
