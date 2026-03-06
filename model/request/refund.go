@@ -28,6 +28,9 @@ type RefundRequest struct {
 	// PaymentMethod is the payment method information. Only available for refund without reference. Optional, recommended to omit for maximum flexibility
 	PaymentMethod *common.PaymentMethodInfo `json:"paymentMethod,omitempty"`
 
+	// CardNetworkType is the card network type (see card network type). Only effective when paymentMethod.category is CARD; when not specified, system auto-detects
+	CardNetworkType string `json:"cardNetworkType,omitempty"`
+
 	// Description is the refund reason description. Should be a real description representing the refund reason
 	Description string `json:"description"`
 

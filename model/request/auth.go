@@ -22,6 +22,9 @@ type AuthRequest struct {
 	// PaymentMethod is the payment method information. Optional, recommended to omit for maximum flexibility
 	PaymentMethod *common.PaymentMethodInfo `json:"paymentMethod,omitempty"`
 
+	// CardNetworkType is the card network type (see card network type). Only effective when paymentMethod.category is CARD; when not specified, system auto-detects
+	CardNetworkType string `json:"cardNetworkType,omitempty"`
+
 	// Description is the product description. Should be a real description representing the product information, may be displayed on some payment App billing pages
 	Description string `json:"description"`
 
