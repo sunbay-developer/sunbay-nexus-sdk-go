@@ -349,3 +349,41 @@ func (c *NexusClient) BatchQuery(ctx context.Context, req *request.BatchQueryReq
 	}
 	return resp, nil
 }
+
+// CreateCheckoutSession creates a hosted payment page session (POST /v1/checkout/create-session).
+// See https://docs.sunbay.dev/en/refspec/online/checkout/checkout-api-integration
+func (c *NexusClient) CreateCheckoutSession(ctx context.Context, req *request.CreateCheckoutSessionRequest) (*response.CreateCheckoutSessionResponse, error) {
+	if req == nil {
+		return nil, errors.NewBusinessError(
+			constant.ErrorCodeParameterError,
+			"CreateCheckoutSessionRequest cannot be nil",
+			"",
+		)
+	}
+
+	resp := &response.CreateCheckoutSessionResponse{}
+	err := c.httpClient.Post(constant.PathCheckoutCreateSession, req, resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+// DirectPayment initiates an online wallet payment without a hosted session (POST /v1/checkout/sale).
+// See https://docs.sunbay.dev/en/refspec/online/direct-payment
+func (c *NexusClient) DirectPayment(ctx context.Context, req *request.CheckoutDirectSaleRequest) (*response.CheckoutDirectSaleResponse, error) {
+	if req == nil {
+		return nil, errors.NewBusinessError(
+			constant.ErrorCodeParameterError,
+			"CheckoutDirectSaleRequest cannot be nil",
+			"",
+		)
+	}
+
+	resp := &response.CheckoutDirectSaleResponse{}
+	err := c.httpClient.Post(constant.PathCheckoutSale, req, resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
