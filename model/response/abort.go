@@ -11,5 +11,8 @@ type AbortResponse struct {
 
 	// OriginalTransactionRequestID is the aborted transaction's request ID (only returned when provided in request)
 	OriginalTransactionRequestID string `json:"originalTransactionRequestId,omitempty"`
+
+	// TransactionStatus is the transaction status
+	TransactionStatus string `json:"transactionStatus"`
 }
 

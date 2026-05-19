@@ -34,6 +34,9 @@ type PostAuthRequest struct {
 	// NotifyURL is the asynchronous notification URL
 	NotifyURL string `json:"notifyUrl,omitempty"`
 
+	// TipConfig is the tip configuration for this transaction
+	TipConfig *common.TipConfig `json:"tipConfig,omitempty"`
+
 	// PrintReceipt is the receipt print option. Possible values: NONE (do not print), MERCHANT (print merchant copy only), CUSTOMER (print customer copy only), BOTH (print both copies). Default: "NONE"
 	PrintReceipt string `json:"printReceipt,omitempty"`
 

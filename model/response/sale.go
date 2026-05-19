@@ -14,5 +14,8 @@ type SaleResponse struct {
 
 	// TransactionRequestID is the transaction request ID, returned as-is from request
 	TransactionRequestID string `json:"transactionRequestId"`
+
+	// TransactionStatus is the transaction status
+	TransactionStatus string `json:"transactionStatus"`
 }
 

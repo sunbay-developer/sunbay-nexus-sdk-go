@@ -20,5 +20,8 @@ type RefundResponse struct {
 
 	// OriginalTransactionRequestID is the original transaction request ID (only returned for refund with reference)
 	OriginalTransactionRequestID string `json:"originalTransactionRequestId,omitempty"`
+
+	// TransactionStatus is the transaction status
+	TransactionStatus string `json:"transactionStatus"`
 }
 

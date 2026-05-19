@@ -17,5 +17,8 @@ type VoidResponse struct {
 
 	// OriginalTransactionRequestID is the original transaction request ID
 	OriginalTransactionRequestID string `json:"originalTransactionRequestId"`
+
+	// TransactionStatus is the transaction status
+	TransactionStatus string `json:"transactionStatus"`
 }
 

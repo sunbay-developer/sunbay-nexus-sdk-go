@@ -17,5 +17,8 @@ type IncrementalAuthResponse struct {
 
 	// OriginalTransactionRequestID is the original authorization transaction request ID, returned as-is from request (only returned when provided in request)
 	OriginalTransactionRequestID string `json:"originalTransactionRequestId,omitempty"`
+
+	// TransactionStatus is the transaction status
+	TransactionStatus string `json:"transactionStatus"`
 }
 
