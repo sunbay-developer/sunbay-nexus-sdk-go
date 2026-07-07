@@ -12,11 +12,6 @@ const (
 
 	// TransactionBatchStatusC indicates the batch is completed
 	TransactionBatchStatusC TransactionBatchStatus = "C"
-
-	// Deprecated aliases kept for compatibility.
-	TransactionBatchStatusNB TransactionBatchStatus = TransactionBatchStatusN
-	TransactionBatchStatusUB TransactionBatchStatus = TransactionBatchStatusU
-	TransactionBatchStatusBC TransactionBatchStatus = TransactionBatchStatusC
 )
 
 // String returns the transaction batch status code
