@@ -4,8 +4,8 @@ import "fmt"
 
 // TipSuggestions represents a tip suggestion option.
 type TipSuggestions struct {
-	// Name is the display name for the tip option.
-	Name string `json:"name,omitempty"`
+	// Names are the display names for the tip options.
+	Names []string `json:"names,omitempty"`
 
 	// FeeMode is the fee mode for tip suggestions. Possible values: RATE, AMOUNT
 	FeeMode string `json:"feeMode"`
@@ -26,7 +26,8 @@ type TipConfig struct {
 	TipWithTax bool `json:"tipWithTax"`
 
 	// Suggestions is the list of tip suggestion options.
-	// Supports at most 3 items.
+	// Supports at most 3 items; each suggestion's names and values lists must
+	// also be at most 3 items and must have the same length.
 	Suggestions []TipSuggestions `json:"suggestions,omitempty"`
 }
 
@@ -37,6 +38,17 @@ func (c *TipConfig) Validate() error {
 	}
 	if len(c.Suggestions) > 3 {
 		return fmt.Errorf("suggestions supports at most 3 items")
+	}
+	for i, suggestion := range c.Suggestions {
+		if len(suggestion.Names) > 3 {
+			return fmt.Errorf("suggestions[%d].names supports at most 3 items", i)
+		}
+		if len(suggestion.Values) > 3 {
+			return fmt.Errorf("suggestions[%d].values supports at most 3 items", i)
+		}
+		if len(suggestion.Names) != len(suggestion.Values) {
+			return fmt.Errorf("suggestions[%d].names and suggestions[%d].values must have the same length", i, i)
+		}
 	}
 	return nil
 }

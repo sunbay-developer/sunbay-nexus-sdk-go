@@ -11,10 +11,10 @@ func TestRequestTipConfigValidation(t *testing.T) {
 		req := &SaleRequest{
 			TipConfig: &common.TipConfig{
 				Suggestions: []common.TipSuggestions{
-					{Name: "A"},
-					{Name: "B"},
-					{Name: "C"},
-					{Name: "D"},
+					{Names: []string{"A"}},
+					{Names: []string{"B"}},
+					{Names: []string{"C"}},
+					{Names: []string{"D"}},
 				},
 			},
 		}
@@ -27,10 +27,10 @@ func TestRequestTipConfigValidation(t *testing.T) {
 		req := &PostAuthRequest{
 			TipConfig: &common.TipConfig{
 				Suggestions: []common.TipSuggestions{
-					{Name: "A"},
-					{Name: "B"},
-					{Name: "C"},
-					{Name: "D"},
+					{Names: []string{"A"}},
+					{Names: []string{"B"}},
+					{Names: []string{"C"}},
+					{Names: []string{"D"}},
 				},
 			},
 		}
