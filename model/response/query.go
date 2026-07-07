@@ -87,7 +87,6 @@ type QueryResponse struct {
 	RelatedTransactionStatus types.RelatedTransactionStatus `json:"relatedTransactionStatus,omitempty"`
 
 	// TransactionBatchStatus is the batch settlement status.
-	// Possible values: NB (no batch settlement needed), UB (waiting for batch close), BC (batch closed)
+	// Possible values: N (no batch settlement needed), U (batch not completed), C (batch completed)
 	TransactionBatchStatus types.TransactionBatchStatus `json:"transactionBatchStatus,omitempty"`
 }
-

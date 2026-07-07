@@ -1,6 +1,10 @@
 package request
 
-import "github.com/sunbay-developer/sunbay-nexus-sdk-go/model/common"
+import (
+	"fmt"
+
+	"github.com/sunbay-developer/sunbay-nexus-sdk-go/model/common"
+)
 
 // PostAuthRequest represents a post authorization (pre-auth completion) transaction request
 type PostAuthRequest struct {
@@ -44,3 +48,15 @@ type PostAuthRequest struct {
 	PushToTerminal *bool `json:"pushToTerminal,omitempty"`
 }
 
+// Validate checks whether the post authorization request is valid.
+func (r *PostAuthRequest) Validate() error {
+	if r == nil {
+		return nil
+	}
+	if r.TipConfig != nil {
+		if err := r.TipConfig.Validate(); err != nil {
+			return fmt.Errorf("tipConfig: %w", err)
+		}
+	}
+	return nil
+}

@@ -41,6 +41,10 @@ type Logger interface {
 	Errorf(format string, args ...interface{})
 }
 
+type validator interface {
+	Validate() error
+}
+
 // defaultLogger is the default logger
 type defaultLogger struct{}
 
@@ -120,6 +124,11 @@ func NewClient(apiKey, baseURL string, connectTimeout, readTimeout, maxRetries, 
 // Post executes a POST request
 func (c *Client) Post(path string, requestBody interface{}, responseType interface{}) error {
 	url := c.baseURL + path
+	if v, ok := requestBody.(validator); ok {
+		if err := v.Validate(); err != nil {
+			return fmt.Errorf("validate request body: %w", err)
+		}
+	}
 	requestJSON := util.ToJSON(requestBody)
 
 	req, err := http.NewRequest("POST", url, strings.NewReader(requestJSON))
@@ -447,5 +456,3 @@ func maskAuthorization(authValue string) string {
 
 	return "****"
 }
-
-

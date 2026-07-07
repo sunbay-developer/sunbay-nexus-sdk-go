@@ -1,6 +1,10 @@
 package request
 
-import "github.com/sunbay-developer/sunbay-nexus-sdk-go/model/common"
+import (
+	"fmt"
+
+	"github.com/sunbay-developer/sunbay-nexus-sdk-go/model/common"
+)
 
 // SaleRequest represents a sale transaction request
 type SaleRequest struct {
@@ -48,4 +52,17 @@ type SaleRequest struct {
 
 	// PrintReceipt is the receipt print option. Possible values: NONE (do not print), MERCHANT (print merchant copy only), CUSTOMER (print customer copy only), BOTH (print both copies). Default: "NONE"
 	PrintReceipt string `json:"printReceipt,omitempty"`
+}
+
+// Validate checks whether the sale request is valid.
+func (r *SaleRequest) Validate() error {
+	if r == nil {
+		return nil
+	}
+	if r.TipConfig != nil {
+		if err := r.TipConfig.Validate(); err != nil {
+			return fmt.Errorf("tipConfig: %w", err)
+		}
+	}
+	return nil
 }

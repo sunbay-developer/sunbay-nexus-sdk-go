@@ -4,14 +4,19 @@ package types
 type TransactionBatchStatus string
 
 const (
-	// TransactionBatchStatusNB indicates no batch settlement needed
-	TransactionBatchStatusNB TransactionBatchStatus = "NB"
+	// TransactionBatchStatusN indicates no batch settlement needed
+	TransactionBatchStatusN TransactionBatchStatus = "N"
 
-	// TransactionBatchStatusUB indicates waiting for batch close
-	TransactionBatchStatusUB TransactionBatchStatus = "UB"
+	// TransactionBatchStatusU indicates the batch is not completed yet
+	TransactionBatchStatusU TransactionBatchStatus = "U"
 
-	// TransactionBatchStatusBC indicates batch closed
-	TransactionBatchStatusBC TransactionBatchStatus = "BC"
+	// TransactionBatchStatusC indicates the batch is completed
+	TransactionBatchStatusC TransactionBatchStatus = "C"
+
+	// Deprecated aliases kept for compatibility.
+	TransactionBatchStatusNB TransactionBatchStatus = TransactionBatchStatusN
+	TransactionBatchStatusUB TransactionBatchStatus = TransactionBatchStatusU
+	TransactionBatchStatusBC TransactionBatchStatus = TransactionBatchStatusC
 )
 
 // String returns the transaction batch status code
@@ -22,7 +27,7 @@ func (s TransactionBatchStatus) String() string {
 // IsValid checks if the status is valid
 func (s TransactionBatchStatus) IsValid() bool {
 	switch s {
-	case TransactionBatchStatusNB, TransactionBatchStatusUB, TransactionBatchStatusBC:
+	case TransactionBatchStatusN, TransactionBatchStatusU, TransactionBatchStatusC:
 		return true
 	default:
 		return false
