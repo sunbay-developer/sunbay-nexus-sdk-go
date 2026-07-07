@@ -387,3 +387,23 @@ func (c *NexusClient) DirectPayment(ctx context.Context, req *request.CheckoutDi
 	}
 	return resp, nil
 }
+
+// OnlineRefund executes an online refund (POST /v1/checkout/refund).
+// Either OriginalTransactionID or OriginalTransactionRequestID must be provided
+// in the request to identify the original transaction to refund.
+func (c *NexusClient) OnlineRefund(ctx context.Context, req *request.OnlineRefundRequest) (*response.OnlineRefundResponse, error) {
+	if req == nil {
+		return nil, errors.NewBusinessError(
+			constant.ErrorCodeParameterError,
+			"OnlineRefundRequest cannot be nil",
+			"",
+		)
+	}
+
+	resp := &response.OnlineRefundResponse{}
+	err := c.httpClient.Post(constant.PathCheckoutRefund, req, resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}

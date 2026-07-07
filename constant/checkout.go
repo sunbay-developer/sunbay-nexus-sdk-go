@@ -4,6 +4,7 @@ package constant
 const (
 	PathCheckoutCreateSession = CommonPrefix + "/checkout/create-session"
 	PathCheckoutSale          = CommonPrefix + "/checkout/sale"
+	PathCheckoutRefund        = CommonPrefix + "/checkout/refund"
 )
 
 // Direct checkout paymentMethod values (POST /v1/checkout/sale)

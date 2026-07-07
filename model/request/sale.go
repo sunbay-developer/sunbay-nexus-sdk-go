@@ -25,6 +25,9 @@ type SaleRequest struct {
 	// CardNetworkType is the card network type (see card network type). Only effective when paymentMethod.category is CARD; when not specified, system auto-detects
 	CardNetworkType string `json:"cardNetworkType,omitempty"`
 
+	// SignatureEntryLocation is the signature location. Possible values: ON_SCREEN (terminal screen signature), ON_RECEIPT (receipt signature). If omitted, the backend default configuration is used
+	SignatureEntryLocation string `json:"signatureEntryLocation,omitempty"`
+
 	// Description is the product description. Should be a real description representing the product information, may be displayed on some payment App billing pages
 	Description string `json:"description"`
 
@@ -46,4 +49,3 @@ type SaleRequest struct {
 	// PrintReceipt is the receipt print option. Possible values: NONE (do not print), MERCHANT (print merchant copy only), CUSTOMER (print customer copy only), BOTH (print both copies). Default: "NONE"
 	PrintReceipt string `json:"printReceipt,omitempty"`
 }
-

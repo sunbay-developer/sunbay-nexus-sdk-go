@@ -66,6 +66,7 @@ func main() {
             OrderAmount:     &orderAmount,
             PriceCurrency:   "USD",
         },
+        SignatureEntryLocation: "ON_SCREEN",
         Description: "Product purchase",
         TerminalSN:  "T1234567890",
     }
@@ -222,4 +223,3 @@ if err != nil {
 ## License
 
 MIT License
-

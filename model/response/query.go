@@ -80,5 +80,14 @@ type QueryResponse struct {
 
 	// Attach is additional data, returned as-is
 	Attach string `json:"attach,omitempty"`
+
+	// RelatedTransactionStatus indicates the lifecycle change of the current transaction
+	// due to subsequent transactions (e.g., a sale transaction that was later refunded).
+	// Possible values: VOIDED/INCREMENTAL/REFUNDED/CAPTURE/PART_REFUNDED
+	RelatedTransactionStatus types.RelatedTransactionStatus `json:"relatedTransactionStatus,omitempty"`
+
+	// TransactionBatchStatus is the batch settlement status.
+	// Possible values: NB (no batch settlement needed), UB (waiting for batch close), BC (batch closed)
+	TransactionBatchStatus types.TransactionBatchStatus `json:"transactionBatchStatus,omitempty"`
 }
 
